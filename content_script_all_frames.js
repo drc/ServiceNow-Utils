@@ -131,7 +131,7 @@ function getFromChromeStorageGlobal(theName, callback) {
 
 //get an instance independent sync parameter
 function getFromSyncStorageGlobal(theName, callback) {
-    chrome.storage.sync.get(theName, function (resSync) {
+    chrome.storage.local.get(theName, function (resSync) {
         var dataSync = resSync[theName];
 
         if (typeof dataSync !== 'object') { //only objects can become large and merged.
@@ -150,7 +150,7 @@ function getFromSyncStorageGlobal(theName, callback) {
 //get an instance sync parameter
 function getFromSyncStorage(theName, callback) {
     var instance = location.host.replace(".service-now.com", "");
-    chrome.storage.sync.get(instance + "-" + theName, function (result) {
+    chrome.storage.local.get(instance + "-" + theName, function (result) {
         callback(result[instance + "-" + theName]);
     });
 }
@@ -159,7 +159,7 @@ function getFromSyncStorage(theName, callback) {
 function setToChromeSyncStorageGlobal(theName, theValue) {
     var myobj = {};
     myobj[theName] = theValue;
-    chrome.storage.sync.set(myobj, function () {
+    chrome.storage.local.set(myobj, function () {
 
     });
 }
