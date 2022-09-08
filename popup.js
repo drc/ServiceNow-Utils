@@ -133,7 +133,7 @@ function setRecordVariables(obj) {
 //Try to get saved form state and set it
 function setFormFromSyncStorage(callback) {
     var query = instance + "-formvalues";
-    chrome.storage.sync.get(query, function (result) {
+    chrome.storage.local.get(query, function (result) {
         if (query in result) {
             $('form').deserialize(result[query]);
         }
@@ -1663,13 +1663,13 @@ function setToChromeStorage(theName, theValue) {
 function setToChromeSyncStorage(theName, theValue) {
     var myobj = {};
     myobj[instance + "-" + theName] = theValue;
-    chrome.storage.sync.set(myobj, function () {
+    chrome.storage.local.set(myobj, function () {
     });
 }
 
 //get an instance sync parameter
 function getFromSyncStorage(theName, callback) {
-    chrome.storage.sync.get(instance + "-" + theName, function (result) {
+    chrome.storage.local.get(instance + "-" + theName, function (result) {
         callback(result[instance + "-" + theName]);
     });
 }
@@ -1678,7 +1678,7 @@ function getFromSyncStorage(theName, callback) {
 function setToChromeSyncStorageGlobal(theName, theValue) {
     var myobj = {};
     myobj[theName] = theValue;
-    chrome.storage.sync.set(myobj, function () {
+    chrome.storage.local.set(myobj, function () {
 
     });
 }
@@ -1701,7 +1701,7 @@ function getFromChromeStorageGlobal(theName, callback) {
     
 //get an instance independent sync parameter
 function getFromSyncStorageGlobal(theName, callback) {
-    chrome.storage.sync.get(theName, function (resSync) {
+    chrome.storage.local.get(theName, function (resSync) {
         var dataSync = resSync[theName];
 
         if (typeof dataSync !== 'object'){ //only objects can become large and merged.

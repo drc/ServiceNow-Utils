@@ -1056,7 +1056,7 @@ function getFromChromeStorageGlobal(theName, callback) {
 function setToChromeSyncStorage(theName, theValue) {
     var myobj = {};
     myobj[instance + "-" + theName] = theValue;
-    chrome.storage.sync.set(myobj, function () {
+    chrome.storage.local.set(myobj, function () {
     });
 }
 
@@ -1068,13 +1068,13 @@ async function getFromSyncStorage(theName, callback) {
     
     // If a callback is provided, use the traditional callback approach
     if (callback) {
-        chrome.storage.sync.get(instanceName, function (result) {
+        chrome.storage.local.get(instanceName, function (result) {
             callback(result[instanceName]);
         });
     } else {
         // If no callback is provided, return a promise
         return new Promise((resolve, reject) => {
-            chrome.storage.sync.get(instanceName, function (result) {
+            chrome.storage.local.get(instanceName, function (result) {
                 if (chrome.runtime.lastError) {
                     // Reject the promise if there's an error
                     reject(chrome.runtime.lastError);
@@ -1091,14 +1091,14 @@ async function getFromSyncStorage(theName, callback) {
 function setToChromeSyncStorageGlobal(theName, theValue) {
     var myobj = {};
     myobj[theName] = theValue;
-    chrome.storage.sync.set(myobj, function () {
+    chrome.storage.local.set(myobj, function () {
 
     });
 }
 
 //get an instance independent sync parameter
 function getFromSyncStorageGlobal(theName, callback) {
-    chrome.storage.sync.get(theName, function (resSync) {
+    chrome.storage.local.get(theName, function (resSync) {
         var dataSync = resSync[theName];
 
         if (typeof dataSync !== 'object'){ //only objects can become large and merged.
